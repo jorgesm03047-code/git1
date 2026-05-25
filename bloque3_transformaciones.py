@@ -255,13 +255,15 @@ def mostrar_bloque3():
             )
             st.plotly_chart(fig, use_container_width=False, width="stretch")
 
-            # Exact SymPy matrices for step-by-step display
-            S_sp = sp.Matrix([[sp.nsimplify(sx, rational=False), 0], [0, sp.nsimplify(sy, rational=False)]])
+            # Exact SymPy matrices for step-by-step display (High performance, completely lag-free)
+            S_sp = sp.Matrix([[sp.Rational(str(sx)), 0], [0, sp.Rational(str(sy))]])
             Ref_sp = sp.Matrix([[1, 0], [0, -1]]) if reflejo else sp.eye(2)
-            Sh_sp = sp.Matrix([[1, sp.nsimplify(shx, rational=False)], [sp.nsimplify(shy, rational=False), 1]])
-            th_rad = np.radians(theta)
-            c_val = sp.nsimplify(np.cos(th_rad), tolerance=1e-5, rational=False)
-            s_val = sp.nsimplify(np.sin(th_rad), tolerance=1e-5, rational=False)
+            Sh_sp = sp.Matrix([[1, sp.Rational(str(shx))], [sp.Rational(str(shy)), 1]])
+            
+            # Exact symbolic rotation
+            theta_sym = sp.Rational(theta, 180) * sp.pi
+            c_val = sp.cos(theta_sym)
+            s_val = sp.sin(theta_sym)
             R_sp = sp.Matrix([[c_val, -s_val], [s_val, c_val]])
 
             st.markdown("### Composicion de la Matriz de Transformacion Paso a Paso")
