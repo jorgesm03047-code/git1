@@ -59,11 +59,7 @@ def gauss_jordan_steps(M, augment_cols=0):
             
         # Si el pivote no esta en la fila r, intercambiar filas
         if pivot_row != r:
-            # Creamos una fila auxiliar para evitar problemas de mutabilidad directa
-            row_r = A.row(r)
-            row_p = A.row(pivot_row)
-            A[r, :] = row_p
-            A[pivot_row, :] = row_r
+            A.row_swap(r, pivot_row)
             steps.append((f"Intercambiamos la fila {r+1} con la fila {pivot_row+1} ($R_{{{r+1}}} \\leftrightarrow R_{{{pivot_row+1}}}$):", A.copy()))
             
         # Hacer el pivote igual a 1
