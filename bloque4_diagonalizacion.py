@@ -101,40 +101,38 @@ def mostrar_bloque4():
 
     for idx_e, (e_val, alg_mult, e_vecs) in enumerate(eigen_info):
         geo_mult = len(e_vecs)
-        st.markdown(f'<div class="card card-accent">', unsafe_allow_html=True)
-        st.markdown(f"### Autovalor $\\lambda_{{{idx_e+1}}} = {sp.latex(e_val)}$")
-        st.markdown(f"Multiplicidad algebraica (m.a.): **{alg_mult}**")
-        st.markdown(f"Multiplicidad geometrica (m.g.): **{geo_mult}**")
+        with st.container(border=True):
+            st.markdown(f"### Autovalor $\\lambda_{{{idx_e+1}}} = {sp.latex(e_val)}$")
+            st.markdown(f"Multiplicidad algebraica (m.a.): **{alg_mult}**")
+            st.markdown(f"Multiplicidad geometrica (m.g.): **{geo_mult}**")
 
-        # Sustituir lambda
-        A_sub = A - e_val * I
-        st.markdown(f"**Matriz $A - ({sp.latex(e_val)})I$:**")
-        st.latex(sp.latex(A_sub))
+            # Sustituir lambda
+            A_sub = A - e_val * I
+            st.markdown(f"**Matriz $A - ({sp.latex(e_val)})I$:**")
+            st.latex(sp.latex(A_sub))
 
-        # Gauss-Jordan homogeneo
-        zero_col = sp.zeros(dim, 1)
-        Aug_sub = A_sub.row_join(zero_col)
-        st.markdown("**Paso a paso de la reduccion por filas:**")
-        sub_steps = gauss_jordan_steps(Aug_sub, augment_cols=1)
-        for idx_s, (desc, mat) in enumerate(sub_steps):
-            st.markdown(f"**Paso {idx_s}: {desc}**")
-            st.latex(render_matrix_latex(mat, augment_cols=1))
+            # Gauss-Jordan homogeneo
+            zero_col = sp.zeros(dim, 1)
+            Aug_sub = A_sub.row_join(zero_col)
+            st.markdown("**Paso a paso de la reduccion por filas:**")
+            sub_steps = gauss_jordan_steps(Aug_sub, augment_cols=1)
+            for idx_s, (desc, mat) in enumerate(sub_steps):
+                st.markdown(f"**Paso {idx_s}: {desc}**")
+                st.latex(render_matrix_latex(mat, augment_cols=1))
 
-        st.markdown("**Autovectores generadores (Base del espacio propio):**")
-        for idx_v, vec in enumerate(e_vecs):
-            st.latex(f"\\vec{{v}}_{{{idx_v+1}}} = " + sp.latex(vec))
+            st.markdown("**Autovectores generadores (Base del espacio propio):**")
+            for idx_v, vec in enumerate(e_vecs):
+                st.latex(f"\\vec{{v}}_{{{idx_v+1}}} = " + sp.latex(vec))
 
-        if alg_mult != geo_mult:
-            st.markdown(
-                '<span class="badge-err">'
-                "m.a. != m.g. -- Este autovalor contribuye a que la matriz sea defectiva. "
-                "La dimension del espacio propio es menor que su multiplicidad algebraica."
-                "</span>",
-                unsafe_allow_html=True,
-            )
-            es_diagonalizable = False
-
-        st.markdown("</div>", unsafe_allow_html=True)
+            if alg_mult != geo_mult:
+                st.markdown(
+                    '<span class="badge-err">'
+                    "m.a. != m.g. -- Este autovalor contribuye a que la matriz sea defectiva. "
+                    "La dimension del espacio propio es menor que su multiplicidad algebraica."
+                    "</span>",
+                    unsafe_allow_html=True,
+                )
+                es_diagonalizable = False
 
     # ═══════════════════════════════════════════
     #  FASE 3: Diagnostico de Diagonalizacion

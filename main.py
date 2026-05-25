@@ -79,6 +79,17 @@ section[data-testid="stSidebar"] .stRadio label:hover {
     border-left: 4px solid #4361ee;
 }
 
+/* Estilo premium para los st.container(border=True) nativos de Streamlit */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 24px 28px !important;
+    margin: 12px 0 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+    border: 1px solid #e8e8e8 !important;
+    border-left: 4px solid #4361ee !important; /* Estilo card-accent nativo! */
+}
+
 /* ───── headers ───── */
 .page-title {
     font-size: 2rem;

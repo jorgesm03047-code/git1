@@ -60,107 +60,104 @@ def mostrar_bloque1():
         st.markdown('<div class="section-label">Resultados con Procedimientos Paso a Paso</div>', unsafe_allow_html=True)
 
         # ── Magnitudes ──
-        st.markdown('<div class="card card-accent">', unsafe_allow_html=True)
-        st.markdown("### 1. Magnitudes (Normas)")
-        st.markdown(
-            "La norma euclidiana se define como la raiz cuadrada de la suma de los cuadrados de sus componentes: "
-            r"$$||\vec{w}|| = \sqrt{w_x^2 + w_y^2 + w_z^2}$$"
-        )
-        
-        # Desglose de u
-        sum_sq_u = ux**2 + uy**2 + uz**2
-        st.markdown("**Paso a paso para la norma de u:**")
-        st.latex(
-            r"||\vec{u}|| = \sqrt{(" + sp.latex(ux) + r")^2 + (" + sp.latex(uy) + r")^2 + (" + sp.latex(uz) + r")^2}"
-        )
-        st.latex(
-            r"||\vec{u}|| = \sqrt{" + sp.latex(ux**2) + r" + " + sp.latex(uy**2) + r" + " + sp.latex(uz**2) + r"} = \sqrt{" + sp.latex(sum_sq_u) + r"}"
-        )
-        st.latex(r"||\vec{u}|| = " + sp.latex(u.norm()))
-        
-        # Desglose de v
-        sum_sq_v = vx**2 + vy**2 + vz**2
-        st.markdown("**Paso a paso para la norma de v:**")
-        st.latex(
-            r"||\vec{v}|| = \sqrt{(" + sp.latex(vx) + r")^2 + (" + sp.latex(vy) + r")^2 + (" + sp.latex(vz) + r")^2}"
-        )
-        st.latex(
-            r"||\vec{v}|| = \sqrt{" + sp.latex(vx**2) + r" + " + sp.latex(vy**2) + r" + " + sp.latex(vz**2) + r"} = \sqrt{" + sp.latex(sum_sq_v) + r"}"
-        )
-        st.latex(r"||\vec{v}|| = " + sp.latex(v.norm()))
-        st.markdown("</div>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown("### 1. Magnitudes (Normas)")
+            st.markdown(
+                "La norma euclidiana se define como la raiz cuadrada de la suma de los cuadrados de sus componentes: "
+                r"$$||\vec{w}|| = \sqrt{w_x^2 + w_y^2 + w_z^2}$$"
+            )
+            
+            # Desglose de u
+            sum_sq_u = ux**2 + uy**2 + uz**2
+            st.markdown("**Paso a paso para la norma de u:**")
+            st.latex(
+                r"||\vec{u}|| = \sqrt{(" + sp.latex(ux) + r")^2 + (" + sp.latex(uy) + r")^2 + (" + sp.latex(uz) + r")^2}"
+            )
+            st.latex(
+                r"||\vec{u}|| = \sqrt{" + sp.latex(ux**2) + r" + " + sp.latex(uy**2) + r" + " + sp.latex(uz**2) + r"} = \sqrt{" + sp.latex(sum_sq_u) + r"}"
+            )
+            st.latex(r"||\vec{u}|| = " + sp.latex(u.norm()))
+            
+            # Desglose de v
+            sum_sq_v = vx**2 + vy**2 + vz**2
+            st.markdown("**Paso a paso para la norma de v:**")
+            st.latex(
+                r"||\vec{v}|| = \sqrt{(" + sp.latex(vx) + r")^2 + (" + sp.latex(vy) + r")^2 + (" + sp.latex(vz) + r")^2}"
+            )
+            st.latex(
+                r"||\vec{v}|| = \sqrt{" + sp.latex(vx**2) + r" + " + sp.latex(vy**2) + r" + " + sp.latex(vz**2) + r"} = \sqrt{" + sp.latex(sum_sq_v) + r"}"
+            )
+            st.latex(r"||\vec{v}|| = " + sp.latex(v.norm()))
 
         # ── Producto Escalar ──
-        st.markdown('<div class="card card-accent">', unsafe_allow_html=True)
-        st.markdown("### 2. Producto Escalar (Punto)")
-        st.markdown(
-            "El producto punto de dos vectores se calcula sumando los productos de sus componentes correspondientes: "
-            r"$$\vec{u} \cdot \vec{v} = u_x v_x + u_y v_y + u_z v_z$$"
-        )
-        dot = u.dot(v)
-        st.markdown("**Paso a paso:**")
-        st.latex(
-            r"\vec{u} \cdot \vec{v} = (" + sp.latex(ux) + r")(" + sp.latex(vx) + r") + (" 
-            + sp.latex(uy) + r")(" + sp.latex(vy) + r") + (" + sp.latex(uz) + r")(" + sp.latex(vz) + r")"
-        )
-        st.latex(
-            r"\vec{u} \cdot \vec{v} = " + sp.latex(ux*vx) + r" + " + sp.latex(uy*vy) + r" + " + sp.latex(uz*vz) + r" = " + sp.latex(dot)
-        )
-        
-        if dot == 0:
-            st.markdown('<span class="badge-ok">Vectores ortogonales (ya que su producto punto es cero).</span>', unsafe_allow_html=True)
-        else:
-            cos_theta = dot / (u.norm() * v.norm())
-            st.markdown("**Angulo entre los vectores ($\cos\theta$):**")
-            st.latex(
-                r"\cos\theta = \frac{\vec{u} \cdot \vec{v}}{||\vec{u}|| ||\vec{v}||} = \frac{" 
-                + sp.latex(dot) + r"}{" + sp.latex(u.norm()) + r" \cdot " + sp.latex(v.norm()) + r"}"
+        with st.container(border=True):
+            st.markdown("### 2. Producto Escalar (Punto)")
+            st.markdown(
+                "El producto punto de dos vectores se calcula sumando los productos de sus componentes correspondientes: "
+                r"$$\vec{u} \cdot \vec{v} = u_x v_x + u_y v_y + u_z v_z$$"
             )
-            st.latex(r"\cos\theta = " + sp.latex(sp.simplify(cos_theta)))
-        st.markdown("</div>", unsafe_allow_html=True)
+            dot = u.dot(v)
+            st.markdown("**Paso a paso:**")
+            st.latex(
+                r"\vec{u} \cdot \vec{v} = (" + sp.latex(ux) + r")(" + sp.latex(vx) + r") + (" 
+                + sp.latex(uy) + r")(" + sp.latex(vy) + r") + (" + sp.latex(uz) + r")(" + sp.latex(vz) + r")"
+            )
+            st.latex(
+                r"\vec{u} \cdot \vec{v} = " + sp.latex(ux*vx) + r" + " + sp.latex(uy*vy) + r" + " + sp.latex(uz*vz) + r" = " + sp.latex(dot)
+            )
+            
+            if dot == 0:
+                st.markdown('<span class="badge-ok">Vectores ortogonales (ya que su producto punto es cero).</span>', unsafe_allow_html=True)
+            else:
+                cos_theta = dot / (u.norm() * v.norm())
+                st.markdown("**Angulo entre los vectores ($\cos\theta$):**")
+                st.latex(
+                    r"\cos\theta = \frac{\vec{u} \cdot \vec{v}}{||\vec{u}|| ||\vec{v}||} = \frac{" 
+                    + sp.latex(dot) + r"}{" + sp.latex(u.norm()) + r" \cdot " + sp.latex(v.norm()) + r"}"
+                )
+                st.latex(r"\cos\theta = " + sp.latex(sp.simplify(cos_theta)))
 
         # ── Producto Cruz ──
-        st.markdown('<div class="card card-accent">', unsafe_allow_html=True)
-        st.markdown("### 3. Producto Cruz (Vectorial)")
-        st.markdown(
-            "El producto vectorial genera un vector perpendicular al plano formado por u y v, usando la regla de determinantes: "
-            r"$$\vec{u} \times \vec{v} = \det \begin{pmatrix} \vec{i} & \vec{j} & \vec{k} \\ u_x & u_y & u_z \\ v_x & v_y & v_z \end{pmatrix}$$"
-        )
-        cross = u.cross(v)
-        st.markdown("**Paso a paso de la expansion por cofactores:**")
-        st.latex(
-            r"\vec{u} \times \vec{v} = \det \begin{pmatrix} \vec{i} & \vec{j} & \vec{k} \\ " 
-            + sp.latex(ux) + r" & " + sp.latex(uy) + r" & " + sp.latex(uz) + r" \\ "
-            + sp.latex(vx) + r" & " + sp.latex(vy) + r" & " + sp.latex(vz) + r" \end{pmatrix}"
-        )
-        st.latex(
-            r"\vec{u} \times \vec{v} = \vec{i} \det \begin{pmatrix} " + sp.latex(uy) + r" & " + sp.latex(uz) + r" \\ " + sp.latex(vy) + r" & " + sp.latex(vz) + r" \end{pmatrix} "
-            r"- \vec{j} \det \begin{pmatrix} " + sp.latex(ux) + r" & " + sp.latex(uz) + r" \\ " + sp.latex(vx) + r" & " + sp.latex(vz) + r" \end{pmatrix} "
-            r"+ \vec{k} \det \begin{pmatrix} " + sp.latex(ux) + r" & " + sp.latex(uy) + r" \\ " + sp.latex(vx) + r" & " + sp.latex(vy) + r" \end{pmatrix}"
-        )
-        st.latex(
-            r"\vec{u} \times \vec{v} = \vec{i} \left[ (" + sp.latex(uy) + r")(" + sp.latex(vz) + r") - (" + sp.latex(uz) + r")(" + sp.latex(vy) + r") \right] "
-            r"- \vec{j} \left[ (" + sp.latex(ux) + r")(" + sp.latex(vz) + r") - (" + sp.latex(uz) + r")(" + sp.latex(vx) + r") \right] "
-            r"+ \vec{k} \left[ (" + sp.latex(ux) + r")(" + sp.latex(vy) + r") - (" + sp.latex(uy) + r")(" + sp.latex(vx) + r") \right]"
-        )
-        st.latex(
-            r"\vec{u} \times \vec{v} = \vec{i} \left[" + sp.latex(uy*vz) + r" - " + sp.latex(uz*vy) + r"\right] "
-            r"- \vec{j} \left[" + sp.latex(ux*vz) + r" - " + sp.latex(uz*vx) + r"\right] "
-            r"+ \vec{k} \left[" + sp.latex(ux*vy) + r" - " + sp.latex(uy*vx) + r"\right]"
-        )
-        st.latex(
-            r"\vec{u} \times \vec{v} = (" + sp.latex(cross[0]) + r")\vec{i} + (" + sp.latex(cross[1]) + r")\vec{j} + (" + sp.latex(cross[2]) + r")\vec{k} = " + sp.latex(cross)
-        )
-        
-        st.markdown("**Area del paralelogramo (Norma del producto cruz):**")
-        st.latex(
-            r"\text{Area} = ||\vec{u} \times \vec{v}|| = \sqrt{(" + sp.latex(cross[0]) + r")^2 + (" + sp.latex(cross[1]) + r")^2 + (" + sp.latex(cross[2]) + r")^2}"
-        )
-        st.latex(
-            r"\text{Area} = \sqrt{" + sp.latex(cross[0]**2) + r" + " + sp.latex(cross[1]**2) + r" + " + sp.latex(cross[2]**2) + r"} = \sqrt{" + sp.latex(cross[0]**2 + cross[1]**2 + cross[2]**2) + r"}"
-        )
-        st.latex(r"\text{Area} = " + sp.latex(cross.norm()))
-        st.markdown("</div>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown("### 3. Producto Cruz (Vectorial)")
+            st.markdown(
+                "El producto vectorial genera un vector perpendicular al plano formado por u y v, usando la regla de determinantes: "
+                r"$$\vec{u} \times \vec{v} = \det \begin{pmatrix} \vec{i} & \vec{j} & \vec{k} \\ u_x & u_y & u_z \\ v_x & v_y & v_z \end{pmatrix}$$"
+            )
+            cross = u.cross(v)
+            st.markdown("**Paso a paso de la expansion por cofactores:**")
+            st.latex(
+                r"\vec{u} \times \vec{v} = \det \begin{pmatrix} \vec{i} & \vec{j} & \vec{k} \\ " 
+                + sp.latex(ux) + r" & " + sp.latex(uy) + r" & " + sp.latex(uz) + r" \\ "
+                + sp.latex(vx) + r" & " + sp.latex(vy) + r" & " + sp.latex(vz) + r" \end{pmatrix}"
+            )
+            st.latex(
+                r"\vec{u} \times \vec{v} = \vec{i} \det \begin{pmatrix} " + sp.latex(uy) + r" & " + sp.latex(uz) + r" \\ " + sp.latex(vy) + r" & " + sp.latex(vz) + r" \end{pmatrix} "
+                r"- \vec{j} \det \begin{pmatrix} " + sp.latex(ux) + r" & " + sp.latex(uz) + r" \\ " + sp.latex(vx) + r" & " + sp.latex(vz) + r" \end{pmatrix} "
+                r"+ \vec{k} \det \begin{pmatrix} " + sp.latex(ux) + r" & " + sp.latex(uy) + r" \\ " + sp.latex(vx) + r" & " + sp.latex(vy) + r" \end{pmatrix}"
+            )
+            st.latex(
+                r"\vec{u} \times \vec{v} = \vec{i} \left[ (" + sp.latex(uy) + r")(" + sp.latex(vz) + r") - (" + sp.latex(uz) + r")(" + sp.latex(vy) + r") \right] "
+                r"- \vec{j} \left[ (" + sp.latex(ux) + r")(" + sp.latex(vz) + r") - (" + sp.latex(uz) + r")(" + sp.latex(vx) + r") \right] "
+                r"+ \vec{k} \left[ (" + sp.latex(ux) + r")(" + sp.latex(vy) + r") - (" + sp.latex(uy) + r")(" + sp.latex(vx) + r") \right]"
+            )
+            st.latex(
+                r"\vec{u} \times \vec{v} = \vec{i} \left[" + sp.latex(uy*vz) + r" - " + sp.latex(uz*vy) + r"\right] "
+                r"- \vec{j} \left[" + sp.latex(ux*vz) + r" - " + sp.latex(uz*vx) + r"\right] "
+                r"+ \vec{k} \left[" + sp.latex(ux*vy) + r" - " + sp.latex(uy*vx) + r"\right]"
+            )
+            st.latex(
+                r"\vec{u} \times \vec{v} = (" + sp.latex(cross[0]) + r")\vec{i} + (" + sp.latex(cross[1]) + r")\vec{j} + (" + sp.latex(cross[2]) + r")\vec{k} = " + sp.latex(cross)
+            )
+            
+            st.markdown("**Area del paralelogramo (Norma del producto cruz):**")
+            st.latex(
+                r"\text{Area} = ||\vec{u} \times \vec{v}|| = \sqrt{(" + sp.latex(cross[0]) + r")^2 + (" + sp.latex(cross[1]) + r")^2 + (" + sp.latex(cross[2]) + r")^2}"
+            )
+            st.latex(
+                r"\text{Area} = \sqrt{" + sp.latex(cross[0]**2) + r" + " + sp.latex(cross[1]**2) + r" + " + sp.latex(cross[2]**2) + r"} = \sqrt{" + sp.latex(cross[0]**2 + cross[1]**2 + cross[2]**2) + r"}"
+            )
+            st.latex(r"\text{Area} = " + sp.latex(cross.norm()))
 
         # ── Vector unitario y cosenos directores ──
         st.markdown('<hr class="sep">', unsafe_allow_html=True)
