@@ -158,7 +158,7 @@ def mostrar_bloque4():
                 for vec in e_vecs:
                     P_cols.append(vec)
                     D_diag.append(e_val)
-            P = sp.hstack(*P_cols)
+            P = sp.Matrix.hstack(*P_cols)
             D = sp.diag(*D_diag)
         except Exception:
             st.error("No se pudo construir la factorizacion numerica.")
