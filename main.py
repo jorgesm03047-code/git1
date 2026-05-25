@@ -36,6 +36,13 @@ section.main .block-container h4 {
     color: #1a1a2e;
 }
 
+/* ── Forzar estilo de enlaces para que resalten y sean clickeables ── */
+section.main .block-container a {
+    color: #4361ee !important;
+    text-decoration: underline !important;
+    font-weight: 600;
+}
+
 /* ───── sidebar ───── */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -429,7 +436,7 @@ def _video_ref(titulo: str, url: str, descripcion: str):
     """Renderiza una tarjeta de referencia de video."""
     st.markdown(
         f'<div class="ref-card">'
-        f'<a href="{url}" target="_blank">{titulo}</a><br>'
+        f'<a href="{url}" target="_blank" style="color: #4361ee !important; text-decoration: underline !important; font-weight: 600 !important; cursor: pointer !important; z-index: 9999 !important; position: relative !important;">{titulo}</a><br>'
         f"<span style='font-size:0.85rem;color:#6c757d;line-height:1.6'>{descripcion}</span>"
         f"</div>",
         unsafe_allow_html=True,

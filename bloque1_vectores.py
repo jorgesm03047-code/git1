@@ -171,25 +171,28 @@ def mostrar_bloque1():
                 "componente entre la norma. Los cosenos directores son los cosenos "
                 "de los angulos que el vector forma con los ejes X, Y y Z."
             )
-            u_hat = u / u.norm()
             norm_u = u.norm()
-            st.markdown("**Paso a paso para el Vector Unitario:**")
-            st.latex(
-                r"\hat{u} = \frac{1}{||\vec{u}||} \vec{u} = \frac{1}{" + sp.latex(norm_u) + r"} \begin{pmatrix} " 
-                + sp.latex(ux) + r" \\ " + sp.latex(uy) + r" \\ " + sp.latex(uz) + r" \end{pmatrix}"
-            )
-            st.latex(r"\hat{u} = " + sp.latex(sp.simplify(u_hat)))
-            
-            st.markdown("**Paso a paso para los Cosenos Directores:**")
-            st.latex(
-                r"\cos\alpha = \frac{u_x}{||\vec{u}||} = \frac{" + sp.latex(ux) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(ux / norm_u))
-            )
-            st.latex(
-                r"\cos\beta = \frac{u_y}{||\vec{u}||} = \frac{" + sp.latex(uy) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(uy / norm_u))
-            )
-            st.latex(
-                r"\cos\gamma = \frac{u_z}{||\vec{u}||} = \frac{" + sp.latex(uz) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(uz / norm_u))
-            )
+            if norm_u == 0:
+                st.markdown('<span class="badge-err">El vector u es el vector nulo (0,0,0). No tiene un vector unitario ni cosenos directores definidos (division entre cero).</span>', unsafe_allow_html=True)
+            else:
+                u_hat = u / norm_u
+                st.markdown("**Paso a paso para el Vector Unitario:**")
+                st.latex(
+                    r"\hat{u} = \frac{1}{||\vec{u}||} \vec{u} = \frac{1}{" + sp.latex(norm_u) + r"} \begin{pmatrix} " 
+                    + sp.latex(ux) + r" \\ " + sp.latex(uy) + r" \\ " + sp.latex(uz) + r" \end{pmatrix}"
+                )
+                st.latex(r"\hat{u} = " + sp.latex(sp.simplify(u_hat)))
+                
+                st.markdown("**Paso a paso para los Cosenos Directores:**")
+                st.latex(
+                    r"\cos\alpha = \frac{u_x}{||\vec{u}||} = \frac{" + sp.latex(ux) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(ux / norm_u))
+                )
+                st.latex(
+                    r"\cos\beta = \frac{u_y}{||\vec{u}||} = \frac{" + sp.latex(uy) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(uy / norm_u))
+                )
+                st.latex(
+                    r"\cos\gamma = \frac{u_z}{||\vec{u}||} = \frac{" + sp.latex(uz) + r"}{" + sp.latex(norm_u) + r"} = " + sp.latex(sp.simplify(uz / norm_u))
+                )
 
     # ────────────── TAB  2: Rectas y Planos ──────────────
     with tab_geo:
