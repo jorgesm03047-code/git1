@@ -255,12 +255,37 @@ def mostrar_bloque3():
             )
             st.plotly_chart(fig, use_container_width=False, width="stretch")
 
-            T_sp = sp.Matrix([
-                [sp.nsimplify(T_total[i][j], rational=False) for j in range(2)]
-                for i in range(2)
-            ])
-            st.markdown("**Matriz de transformacion compuesta:**")
-            st.latex("T = " + sp.latex(T_sp))
+            # Exact SymPy matrices for step-by-step display
+            S_sp = sp.Matrix([[sp.nsimplify(sx, rational=False), 0], [0, sp.nsimplify(sy, rational=False)]])
+            Ref_sp = sp.Matrix([[1, 0], [0, -1]]) if reflejo else sp.eye(2)
+            Sh_sp = sp.Matrix([[1, sp.nsimplify(shx, rational=False)], [sp.nsimplify(shy, rational=False), 1]])
+            th_rad = np.radians(theta)
+            c_val = sp.nsimplify(np.cos(th_rad), tolerance=1e-5, rational=False)
+            s_val = sp.nsimplify(np.sin(th_rad), tolerance=1e-5, rational=False)
+            R_sp = sp.Matrix([[c_val, -s_val], [s_val, c_val]])
+
+            st.markdown("### Composicion de la Matriz de Transformacion Paso a Paso")
+            st.markdown(
+                "La matriz de transformacion compuesta $T$ se obtiene multiplicando las matrices de las "
+                "transformaciones individuales en orden de aplicacion (de derecha a izquierda): "
+                r"$$T = R \cdot Sh \cdot S \cdot Ref$$"
+            )
+            
+            # Step 1: S @ Ref
+            S_Ref = S_sp * Ref_sp
+            st.markdown("**1. Composicion de Escala y Reflexion ($S \\cdot Ref$):**")
+            st.latex(sp.latex(S_sp) + r"\cdot" + sp.latex(Ref_sp) + " = " + sp.latex(S_Ref))
+            
+            # Step 2: Sh @ (S @ Ref)
+            Sh_S_Ref = Sh_sp * S_Ref
+            st.markdown("**2. Composicion con Cizallamiento ($Sh \\cdot (S \\cdot Ref)$):**")
+            st.latex(sp.latex(Sh_sp) + r"\cdot" + sp.latex(S_Ref) + " = " + sp.latex(Sh_S_Ref))
+            
+            # Step 3: R @ (Sh @ S @ Ref)
+            T_sp = R_sp * Sh_S_Ref
+            st.markdown("**3. Composicion Final con Rotacion ($T = R \\cdot (Sh \\cdot S \\cdot Ref)$):**")
+            st.latex(sp.latex(R_sp) + r"\cdot" + sp.latex(Sh_S_Ref) + " = " + sp.latex(T_sp))
+
             det_T = T_sp.det()
             det_float = abs(float(det_T.evalf()))
             st.markdown(
